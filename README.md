@@ -1,7 +1,6 @@
 # Assignment 3 — Authorship attribution
 
-Predict the author of each fanfiction snippet among 20 authors. This structure assigns ownership to three group members; replace the member numbers with names when agreed.
-
+Predict the author of each fanfiction snippet among 20 authors. 
 ## Ownership and handoffs
 
 | Owner | Delivers
