@@ -1,0 +1,24 @@
+[project]
+name = "txmm-a3-aa"
+version = "0.1.0"
+description = "TxMM Assignment 3 - Authorship Attribution (PAN2020 fanfiction, 20 authors)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "nltk",
+    "matplotlib",
+    "pyparsing",
+    "ipykernel",
+]
+
+[dependency-groups]
+dev = [
+    "jupyterlab",
+    "ipywidgets",
+]
+
+[tool.uv]
+package = false
