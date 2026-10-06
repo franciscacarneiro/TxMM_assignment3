@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 
 from src.evaluation import f1, macro_f1
-from src.model import classify
+from src.model import Classifier
 
 
 def _drop(features, columns):
@@ -13,7 +13,7 @@ def _drop(features, columns):
 
 
 def _score(train_features, train_labels, test_features, test_labels):
-    pred = classify(train_features, train_labels, test_features)
+    pred = Classifier().train(train_features, train_labels).predict(test_features)
     return {"micro_f1": f1(test_labels, pred), "macro_f1": macro_f1(test_labels, pred)}
 
 
