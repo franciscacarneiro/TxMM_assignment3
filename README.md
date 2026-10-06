@@ -11,7 +11,7 @@ Predict the author of each fanfiction snippet among 20 authors.
 | Owner | Delivers |
 |---|---|
 | Member 1 | Data loader, feature extractor, feature names and groups |
-| Miquel | Classifier class, Reusable training function, chosen settings, model and predictions |
+| Miquel | Classifier class, reusable training function, chosen settings, model and predictions |
 | Member 3 | Evaluation functions, ablation results, figures and error analysis |
 
 ## Design Decisions
