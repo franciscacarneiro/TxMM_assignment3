@@ -5,8 +5,9 @@ from sklearn.pipeline import Pipeline
 
 
 class Classifier:
-    def __init__(self):
-        self.pipe = Pipeline([('scaler', StandardScaler()), ('svc', LinearSVC())])
+    def __init__(self, clf=None):
+        # any sklearn classifier; features are standardized before it
+        self.pipe = Pipeline([('scaler', StandardScaler()), ('clf', clf if clf is not None else LinearSVC())])
         self.prediction = None
 
     def train(self, x_train, y_train):
