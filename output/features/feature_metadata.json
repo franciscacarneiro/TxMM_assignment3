@@ -307,15 +307,22 @@
     "authorship_stylistic": "Word/sentence length and vocabulary diversity plus character-class ratios; captures broad writing style.",
     "pos_tags": "Penn Treebank tag frequencies divided by all Treebank tokens, plus OTHER; captures grammatical patterns."
   },
+  "feature_group_labels": {
+    "function_words": "Function words",
+    "character_frequencies": "Character frequencies",
+    "idiosyncratic": "Idiosyncratic",
+    "authorship_stylistic": "Authorship stylistic",
+    "pos_tags": "POS tags"
+  },
   "feature_count": 143,
   "learned_from_assignment_data": false,
   "pos_model": "NLTK averaged_perceptron_tagger_eng",
   "sentence_boundaries": "Runs of .!?; nonempty lexical segments only",
   "word_definition": "Unicode letters with optional internal apostrophes; lowercase",
   "versions": {
-    "python": "3.9.6",
-    "numpy": "2.0.2",
-    "nltk": "3.9.1"
+    "python": "3.13.9",
+    "numpy": "2.3.5",
+    "nltk": "3.9.2"
   },
   "splits": {
     "train": {
@@ -372,12 +379,5 @@
       "source_file": "pan2627_dev_data.csv",
       "sha256": "7f12a5b9123e3355c407d3b346ebf0f200570eaaa40baf2d605a2d18cea5b1d4"
     }
-  },
-  "feature_group_labels": {
-    "function_words": "Function words",
-    "character_frequencies": "Character frequencies",
-    "idiosyncratic": "Idiosyncratic",
-    "authorship_stylistic": "Authorship stylistic",
-    "pos_tags": "POS tags"
   }
 }

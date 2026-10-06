@@ -13,20 +13,19 @@ class Classifier:
         
     def train(self):
         # Train the classifier
-        self.clf.fit(self.data.x, self.data.y)
+        self.clf.fit(self.data.texts, self.data.authors)
     
     def predict(self, x_test):
         self.prediction = self.clf.predict(x_test)
         return self.prediction
         
     def accuracy(self):
-        return accuracy_score(self.test.y, self.prediction) if not self.prediction else None
+        return accuracy_score(self.test.authors, self.prediction) if not self.prediction else None
         
     def performance(self, target_names):
         if not self.prediction:
             return None
-        self.accuracy = accuracy_score(self.test.y, self.prediction)
-        self.report = classification_report(self.test.y, self.prediction, target_names=target_names)
+        self.report = classification_report(self.test.authors, self.prediction, target_names=target_names)
         return self.report
 
     def predict_category(self, text):
