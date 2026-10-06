@@ -1,22 +1,19 @@
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
 
 class Classifier:
-    def __init__(self, data, test, target_names):
-        # Initialize attributes
-        self.data = data
-        self.test = test
-        self.target_names = target_names
-        
-        # Initialize classifier
-        self.clf = LinearSVC()
-        
-    def train(self):
-        # Train the classifier
-        self.clf.fit(self.data.texts, self.data.authors)
-    
+    def __init__(self):
+        self.pipe = Pipeline([('scaler', StandardScaler()), ('svc', LinearSVC())])
+        self.prediction = None
+
+    def train(self, x_train, y_train):
+        self.pipe.fit(x_train, y_train)
+        return self.pipe
+
     def predict(self, x_test):
-        self.prediction = self.clf.predict(x_test)
+        self.prediction = self.pipe.predict(x_test)
         return self.prediction
         
     def accuracy(self):
