@@ -1,6 +1,7 @@
 # leave-one-group-out ablation over feature categories.
 
 import matplotlib.pyplot as plt
+from sklearn.base import clone
 
 from src.evaluation import f1, macro_f1
 from src.model import Classifier
@@ -12,17 +13,17 @@ def _drop(features, columns):
     return [[v for i, v in enumerate(row) if i not in drop] for row in features]
 
 
-def _score(train_features, train_labels, test_features, test_labels):
-    pred = Classifier().train(train_features, train_labels).predict(test_features)
+def _score(train_features, train_labels, test_features, test_labels, clf=None):
+    pred = Classifier(clone(clf) if clf is not None else None).train(train_features, train_labels).predict(test_features)
     return {"micro_f1": f1(test_labels, pred), "macro_f1": macro_f1(test_labels, pred)}
 
 
-def ablate(groups, train_features, train_labels, test_features, test_labels):
+def ablate(groups, train_features, train_labels, test_features, test_labels, clf=None):
     # baseline with all features, then one run with each feature group left out
-    scores = {"all": _score(train_features, train_labels, test_features, test_labels)}
+    scores = {"all": _score(train_features, train_labels, test_features, test_labels, clf)}
     for name, columns in groups.items():
         scores[name] = _score(
-            _drop(train_features, columns), train_labels, _drop(test_features, columns), test_labels
+            _drop(train_features, columns), train_labels, _drop(test_features, columns), test_labels, clf
         )
 
     return scores
