@@ -2,6 +2,10 @@
 
 Predict the author of each fanfiction snippet among 20 authors. 
 
+<p align="center">
+  <img src="./outputs/image_2026-10-06_173206482.png" alt="Confusion matrix for our authorship attribution" height="400"/>
+</p>
+
 ## Ownership and handoffs
 
 | Owner | Delivers |
