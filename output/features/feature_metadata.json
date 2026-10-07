@@ -320,9 +320,9 @@
   "sentence_boundaries": "Runs of .!?; nonempty lexical segments only",
   "word_definition": "Unicode letters with optional internal apostrophes; lowercase",
   "versions": {
-    "python": "3.9.6",
-    "numpy": "2.0.2",
-    "nltk": "3.9.1"
+    "python": "3.13.9",
+    "numpy": "2.3.5",
+    "nltk": "3.9.2"
   },
   "splits": {
     "train": {
