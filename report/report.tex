@@ -2,7 +2,7 @@
 % Limit: 3 pages, self-contained. Submit as Txmm_A3-AA_<groupnumber>.pdf
 \documentclass[11pt,twocolumn]{article}
 \usepackage[T1]{fontenc}
-\usepackage{a4wide}
+\usepackage[a4paper, margin=2cm]{geometry}
 \usepackage[style=numeric,sorting=none,maxnames=10]{biblatex}
 \usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
@@ -85,7 +85,10 @@ On the test set, the final model achieves a macro-F1 of 0.944 compared to 0.953 
 \end{figure}
 
 \section{Ablation and feature selection}
-Our final model performed rather well. 
+The next step for us was to measure the contribution of each group. To do this, we retrain the final SVC with one group left out and evaluate it on the development set (Figure \ref{fig:ablation}). We note that every group contributes. The informal group is the most informative (0.953 drops to 0.883 without it), followed by punctuation (0.909) and then character frequencies (0.915).
+
+Feature selection would likely bring little gain. For our final model, no group is pure noise. Probably, the stronger  regularization already shrinks uninformative weights. A brief test with the untuned LRM, showed that removing the semantic, structure or syntactic group still improved the score. However for our final, tuned model, this does not seem to be the case. 
+
 
 \begin{figure}[ht]
     \centering
@@ -111,5 +114,5 @@ With 10 extra hours we would regroup and recreate the dataset. Currently there i
 Authors don't always write in the same style. In our failure analysis we saw that quite some of the remaining mistakes (4/14) were made when the snippet contained some opening or closing notes, written in a different style than their normal writing. Another challenge is that the topic the authors write on might be a confounding factor, especially for some features like n-grams. 
 
 \section{Conclusion}
-Overall, we believe that we created a classifer which, for this datasest, performs the task of authorship attribution really well. 
+Overall, we believe that we created a classifer which, for this datasest, performs the task of authorship attribution really well. Tuning the regularization allowed us to keep all feature-groups in the final model, as the ablation study showed that each contributed at least to some degree. There were some issues with the data, which makes it hard for us to be fully confident in the exact performance. But dealing with this felt out of scope for this assignment. For future work this would be the most essential part to cover. 
 \end{document}
