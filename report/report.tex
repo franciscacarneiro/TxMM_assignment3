@@ -10,7 +10,6 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage[font=small,skip=4pt]{caption}
-\addbibresource{report.bib}
 \graphicspath{{../outputs/}}
 \setlength{\columnsep}{0.8cm}
 
@@ -98,16 +97,19 @@ Our final model performed rather well.
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection*{Problems and failure analysis}
-% Do failure analysis
+\subsection*{Problems}
+One issue we faced was the fact that our scores were stuck being rather poor. This was resolved with the standard scalar and the non-linear RF model. Another issue we encountered was the fact that the apostrophies were annotated as \", causing our initial version for those features to fail. Furthermore, the standard size of the snippets and the fact they don't use newlines means that paragraph structure features don't apply here.
 
+
+\subsection{Failure Analysis}
+On the test set, our classifier makes only 14 mistakes, for 267 snippets. To analyze these failures, we look at several different aspects. Firstly, per-author F1 ranges from 0.86 to 1.00, with no author failing badly. This means that our errors are spread out over all authors, rather than the model confusing a handful very badly, and the rest being perfect. Where the model is wrong, the margin between the score for the most likely author and second most likely author is 0.30, compared to a gap of 1.25 for correct answers. This means that the model is less confident when it makes mistakes. Finally, upon inspection of each mistakes' text, we note that 95, 141, 166, 179 all contain an author note, this might be stylistically different from the rest of that authors' text. These mistakes also had a larger margin. 
 
 \subsection*{With 10 extra hours}
+With 10 extra hours we would regroup and recreate the dataset. Currently there is leakage between train, dev and test data, as the snippets of the same stories are shared between them. This is made worse by the fact that these snippets were created with overlap, meaning that actual overlapping parts of these sequences are also shared between train and test data. We would then redo our work on this cleaner dataset. Another thing we could tackle is trying more different features.
 
 \subsection*{Challenges in authorship attribution}
+Authors don't always write in the same style. In our failure analysis we saw that quite some of the remaining mistakes (4/14) were made when the snippet contained some opening or closing notes, written in a different style than their normal writing. Another challenge is that the topic the authors write on might be a confounding factor, especially for some features like n-grams. 
 
 \section{Conclusion}
-
-\printbibliography
-
+Overall, we believe that we created a classifer which, for this datasest, performs the task of authorship attribution really well. 
 \end{document}
