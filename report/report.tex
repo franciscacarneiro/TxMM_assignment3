@@ -30,27 +30,33 @@ In this paper we train a model to do authorship attribution. Our data is a fragm
 
 \section{Features}
 
+We represented each fanfiction snippet using 150 numerical features in seven groups. The provided training, development, and test splits contain 2,138, 268, and 267 snippets, respectively, covering 20 authors. Only the text is passed to the feature extractor: author labels are used as targets, and snippet IDs are not input features. To address contraction encoding, we normalized double quotes occurring between ASCII letters to apostrophes, then applied NLTK sentence tokenization, word tokenization and English part-of-speech (POS) tagging. Laslty, lexical counts use lowercased alphabetic tokens, while punctuation remains available in the normalized text and token sequence.
+
+Table~\ref{tab:features} summarizes the seven feature groups. Firstly, character and punctuation features capture surface writing conventions, while structural and lexical features describe organization and lexical preferences. Moreover, syntactic features capture grammatical patterns and narrative perspective, and informal-writing features target fanfiction conventions. At last, semantic features capture conceptual preferences and tone, but may also reflect topic and fandom.
+
 \begin{table}[ht]
     \centering
     \small
-    \caption{}
+    \caption{Overview of the 150 features used to represent each fanfiction snippet.}
     \label{tab:features}
     \begin{tabularx}{\columnwidth}{@{}lr>{\raggedright\arraybackslash}X@{}}
         \toprule
         Group & \# & Description \\
         \midrule
-        Character   & 30 & \\
-        Punctuation & 12 & \\
-        Structure   &  8 & \\
-        Lexical     & 15 & \\
-        Syntactic   & 14 & \\
-        Informal    & 13 & \\
-        Semantic    & 58 & \\
+        Character   & 30 & Letter frequencies, capitalization, digits and spacing. \\
+        Punctuation & 12 & Eight punctuation marks and four dialogue patterns. \\
+        Structural  &  8 & Document size, paragraph count and sentence-length distributions. \\
+        Lexical     & 15 & Word-length distributions, vocabulary diversity and repetition. \\
+        Syntactic   & 14 & Eleven coarse POS frequencies and three pronoun-person frequencies. \\
+        Informal    & 13 & Fanfiction conventions such as contractions, ellipse, stutters, etc..\\
+        Semantic    & 58 & WordNet noun/verb supersenses, two WordNet summary measures, sentence-level VADER sentiment and ten NRC associations. \\
         \midrule
         Total       & 150 & \\
         \bottomrule
     \end{tabularx}
 \end{table}
+
+For normalization, character counts are divided by the character count, lexical and regular-expression pattern counts by the alphabetic word count, POS counts by the total token count, and supersense counts by the number of matched noun/verb senses. Also, sentence-length measures are normalized by the number of sentences containing alphabetic words and document word and sentence counts are log-transformed, whereas paragraph count is retained as a raw count. Finally, undefined ratios and empty summary statistics return zero, while StandardScaler is fitted on the training data within the classifier pipeline and scales the feature columns before classification so it does not restrict values to a fixed interval.
 
 \section{Classifier}
 For the classification task, we evaluated several models: a Linear Support Vector Classifier (SVC), a Logistic Regression Model (LRM), and a Random Forest (RF), all implemented using the scikit-learn library. Since many of the input features operate on different scales, and some of these models are sensitive to differences in feature magnitude, we standardized the features using scikit-learn's StandardScaler. This transformation centers each feature around zero and scales it to unit variance. Feature scaling massively improved the F1-score on the development set, as expected.
